@@ -55,6 +55,15 @@ const TextFieldStyle = styled(TextField)<TextFieldProps>(({ theme }) => {
       '& .MuiInputAdornment-root': {
         marginTop: '0 !important'
       }
+    },
+    '& .MuiFormHelperText-root': {
+      lineHeight: 1.2,
+      margin: theme.spacing(1, 0, 0),
+      color: theme.palette.text.primary,
+      fontSize: theme.typography.body2.fontSize,
+      '&.Mui-error': {
+        color: theme.palette.error.main
+      }
     }
   }
 })
@@ -63,7 +72,7 @@ const CustomTextField = (props: TextFieldProps) => {
   const { size = 'small', InputLabelProps, variant = 'filled', ...rest } = props
 
   return (
-    <TextFieldStyle variant={variant} {...rest} size={size} InputLabelProps={{ ...InputLabelProps, shrink: false }} />
+    <TextFieldStyle variant={variant} {...rest} size={size} InputLabelProps={{ ...InputLabelProps, shrink: true }} />
   )
 }
 export default CustomTextField
