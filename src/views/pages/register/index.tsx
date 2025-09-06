@@ -220,7 +220,14 @@ const RegisterPage: NextPage<TProps> = () => {
             <Grid container justifyContent={'center'} alignItems={'center'} spacing={2}>
               <Grid item>{'Do you have already account?'}</Grid>
               <Grid item>
-                <Link href='/login'>{'Sign in'}</Link>
+                <Link
+                  style={{
+                    color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white
+                  }}
+                  href='/login'
+                >
+                  {'Sign in'}
+                </Link>
               </Grid>
             </Grid>
             <Divider sx={{ my: 2 }}>
