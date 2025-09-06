@@ -25,6 +25,7 @@ import LoginLight from '/public/images/login-light.png'
 import LoginDark from '/public/images/login-dark.png'
 import { useTheme } from '@mui/material'
 import Link from 'next/link'
+import { useAuth } from 'src/hooks/useAuth'
 
 type TProps = {}
 
@@ -36,6 +37,8 @@ type TDefaultValue = {
 const LoginPage: NextPage<TProps> = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [isRemember, setIsRemember] = useState(true)
+
+  const { login } = useAuth()
 
   const theme = useTheme()
 
@@ -63,7 +66,7 @@ const LoginPage: NextPage<TProps> = () => {
   })
 
   const onSubmit = (data: { email: string; password: string }) => {
-    console.log(errors, data)
+    if (Object.keys(data).length) login({ ...data, rememberMe: isRemember })
   }
 
   return (
@@ -196,7 +199,7 @@ const LoginPage: NextPage<TProps> = () => {
               <Grid item>
                 <Link
                   style={{
-                    color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white
+                    color: theme.palette.primary.main
                   }}
                   href='/register'
                 >
@@ -216,7 +219,7 @@ const LoginPage: NextPage<TProps> = () => {
                   xmlnsXlink='http://www.w3.org/1999/xlink'
                   aria-hidden='true'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'
@@ -234,7 +237,7 @@ const LoginPage: NextPage<TProps> = () => {
                   xmlnsXlink='http://www.w3.org/1999/xlink'
                   aria-hidden='true'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'

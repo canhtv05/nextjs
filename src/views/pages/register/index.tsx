@@ -222,7 +222,7 @@ const RegisterPage: NextPage<TProps> = () => {
               <Grid item>
                 <Link
                   style={{
-                    color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white
+                    color: theme.palette.primary.main
                   }}
                   href='/login'
                 >
@@ -242,7 +242,7 @@ const RegisterPage: NextPage<TProps> = () => {
                   xmlnsXlink='http://www.w3.org/1999/xlink'
                   aria-hidden='true'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'
@@ -260,7 +260,7 @@ const RegisterPage: NextPage<TProps> = () => {
                   xmlnsXlink='http://www.w3.org/1999/xlink'
                   aria-hidden='true'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'
