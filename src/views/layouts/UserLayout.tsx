@@ -4,8 +4,8 @@ import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Container from '@mui/material/Container'
 import { NextPage } from 'next'
-import VerticalLayout from './VerticalLayout'
 import HorizontalLayout from './HorizontalLayout'
+import VerticalLayout from './VerticalLayout'
 
 type TProps = {
   children: React.ReactNode
