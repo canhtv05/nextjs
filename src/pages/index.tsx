@@ -1,7 +1,6 @@
 'use client'
-import { Box } from '@mui/material'
+
 import Head from 'next/head'
-import CustomTextField from 'src/components/text-field'
 
 export default function Home() {
   return (
@@ -12,14 +11,6 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Box
-        sx={{
-          margin: 6,
-          width: '200px'
-        }}
-      >
-        <CustomTextField id='filled-basic' label='Filled' variant='filled' />
-      </Box>
     </>
   )
 }
