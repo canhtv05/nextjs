@@ -3,9 +3,9 @@ import { styled } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import { NextPage } from 'next'
-import { Divider, List } from '@mui/material'
+import { Divider } from '@mui/material'
 import MuiDrawer from '@mui/material/Drawer'
-import { mainListItems, secondaryListItems } from './listItems'
+import ListVerticalLayout from './ListVerticalLayout'
 
 const drawerWidth: number = 240
 
@@ -52,11 +52,7 @@ const VerticalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
         <IconButton onClick={toggleDrawer}>{/* <Icon icon={'ic:round-menu'} /> */}</IconButton>
       </Toolbar>
       <Divider />
-      <List component='nav'>
-        {mainListItems}
-        <Divider sx={{ my: 1 }} />
-        {secondaryListItems}
-      </List>
+      <ListVerticalLayout />
     </Drawer>
   )
 }
