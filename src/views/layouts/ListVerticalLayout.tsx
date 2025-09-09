@@ -6,13 +6,42 @@ import { VerticalItems } from 'src/configs/layout'
 
 type TProps = {}
 
-const ListVerticalLayout: NextPage<TProps> = () => {
-  const [openChild, setOpenChild] = React.useState(true)
+const RecursiveListItems = ({ items, level }: { items: any[]; level: number }) => {
+  const [open, setOpen] = React.useState<Record<string, boolean>>({})
 
-  const handleClick = () => {
-    setOpenChild(prev => !prev)
+  const handleClick = (key: string) => {
+    setOpen(prev => ({ ...prev, [key]: !prev[key] }))
   }
 
+  return (
+    <>
+      {items.map(item => (
+        <React.Fragment key={item.title}>
+          <ListItemButton
+            sx={{ padding: `8px 10px 8px ${level * 10}px` }}
+            onClick={item.children ? () => handleClick(item.title) : undefined}
+          >
+            <ListItemIcon>
+              <Icon icon={item.icon} />
+            </ListItemIcon>
+            <ListItemText primary={item.title} />
+            {Array.isArray(item.children) && item.children.length > 0 && (
+              <>{!!open[item.title] ? <Icon icon={'lucide:chevron-down'} /> : <Icon icon={'lucide:chevron-up'} />}</>
+            )}
+          </ListItemButton>
+
+          {Array.isArray(item.children) && item.children.length > 0 && (
+            <Collapse in={!!open[item.title]} timeout='auto' unmountOnExit>
+              <RecursiveListItems items={item.children} level={level + 1} />
+            </Collapse>
+          )}
+        </React.Fragment>
+      ))}
+    </>
+  )
+}
+
+const ListVerticalLayout: NextPage<TProps> = () => {
   return (
     <Box sx={{ overflow: 'hidden', minHeight: '100vh' }}>
       <List
@@ -20,30 +49,7 @@ const ListVerticalLayout: NextPage<TProps> = () => {
         component='nav'
         aria-labelledby='nested-list-subheader'
       >
-        {VerticalItems.map(item => (
-          <React.Fragment key={item.title}>
-            <ListItemButton onClick={item.children && handleClick}>
-              <ListItemIcon>
-                <Icon icon={item.icon} />
-              </ListItemIcon>
-              <ListItemText primary={item.title} />
-            </ListItemButton>
-            {Array.isArray(item.children) &&
-              item.children.length > 0 &&
-              item.children.map(child => (
-                <Collapse key={child.title} in={openChild} timeout='auto' unmountOnExit>
-                  <List component='div' disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemIcon>
-                        <Icon icon={child.icon} />
-                      </ListItemIcon>
-                      <ListItemText primary={child.title} />
-                    </ListItemButton>
-                  </List>
-                </Collapse>
-              ))}
-          </React.Fragment>
-        ))}
+        <RecursiveListItems items={VerticalItems} level={1} />
       </List>
     </Box>
   )
