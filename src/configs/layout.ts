@@ -1,48 +1,25 @@
 export const VerticalItems = [
   {
-    title: 'Dashboard',
-    icon: 'lucide:layout-dashboard',
-    path: '/dashboard'
-  },
-  {
-    title: 'Users',
-    icon: 'lucide:users',
-    path: '/users',
+    title: 'System',
+    icon: 'ic:outline-more',
     children: [
       {
-        title: 'User List',
-        icon: 'lucide:list',
-        path: '/users/list'
-      },
-      {
-        title: 'User Profile',
-        icon: 'lucide:user',
-        path: '/users/profile'
-      }
-    ]
-  },
-  {
-    title: 'Settings',
-    icon: 'lucide:settings',
-    path: '/settings',
-    children: [
-      {
-        title: 'General',
-        icon: 'lucide:sliders',
-        path: '/settings/general'
-      },
-      {
-        title: 'Security',
-        icon: 'lucide:shield',
-        path: '/settings/security',
+        title: 'Product',
+        icon: 'ic:outline-more',
+        path: '/product',
         children: [
           {
-            title: 'Roles & Permissions',
-            icon: 'lucide:key',
-            path: '/settings/security/roles'
+            title: 'Product type',
+            icon: 'ic:outline-more',
+            path: '/product-type'
           }
         ]
       }
     ]
+  },
+  {
+    title: 'User',
+    icon: 'ic:outline-more',
+    path: '/user'
   }
 ]

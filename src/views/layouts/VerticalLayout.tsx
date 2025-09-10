@@ -6,6 +6,7 @@ import { NextPage } from 'next'
 import { Divider } from '@mui/material'
 import MuiDrawer from '@mui/material/Drawer'
 import ListVerticalLayout from './ListVerticalLayout'
+import Icon from 'src/components/Icon'
 
 const drawerWidth: number = 240
 
@@ -30,9 +31,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: prop => prop !== 'open' })
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen
       }),
-      width: theme.spacing(7),
+      width: theme.spacing(12),
       [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9)
+        width: theme.spacing(12)
       }
     })
   }
@@ -49,10 +50,12 @@ const VerticalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
           px: [1]
         }}
       >
-        <IconButton onClick={toggleDrawer}>{/* <Icon icon={'ic:round-menu'} /> */}</IconButton>
+        <IconButton onClick={toggleDrawer}>
+          <Icon icon={'mingcute:left-line'} />
+        </IconButton>
       </Toolbar>
       <Divider />
-      <ListVerticalLayout />
+      <ListVerticalLayout open={open} />
     </Drawer>
   )
 }
