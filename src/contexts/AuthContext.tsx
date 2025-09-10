@@ -13,6 +13,7 @@ import authConfig from 'src/configs/auth'
 // ** Types
 import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
 import { loginAuth } from 'src/services/auth'
+import { CONFIGS_API } from 'src/configs/api'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -44,14 +45,14 @@ const AuthProvider = ({ children }: Props) => {
       if (storedToken) {
         setLoading(true)
         await axios
-          .get(authConfig.meEndpoint, {
+          .get(CONFIGS_API.AUTH.AUTH_ME, {
             headers: {
-              Authorization: storedToken
+              Authorization: `Bearer ${storedToken}`
             }
           })
           .then(async response => {
             setLoading(false)
-            setUser({ ...response.data.userData })
+            setUser({ ...response.data.data })
           })
           .catch(() => {
             localStorage.removeItem('userData')
@@ -59,7 +60,7 @@ const AuthProvider = ({ children }: Props) => {
             localStorage.removeItem('accessToken')
             setUser(null)
             setLoading(false)
-            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
+            if (!router.pathname.includes('login')) {
               router.replace('/login')
             }
           })
@@ -79,9 +80,8 @@ const AuthProvider = ({ children }: Props) => {
           ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.access_token)
           : null
         const returnUrl = router.query.returnUrl
-
         setUser({ ...response.data.user })
-        params.rememberMe ? window.localStorage.setItem('user', JSON.stringify(response.data.user)) : null
+        params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.user)) : null
 
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
 
