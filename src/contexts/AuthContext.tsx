@@ -9,7 +9,7 @@ import axios from 'axios'
 
 // ** Types
 import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
-import { loginAuth } from 'src/services/auth'
+import { loginAuth, logoutAuth } from 'src/services/auth'
 import { CONFIGS_API } from 'src/configs/api'
 import { clearLocalUserData, setLocalUserData } from 'src/components/helpers/storage'
 import { ACCESS_TOKEN } from 'src/configs/auth'
@@ -77,8 +77,8 @@ const AuthProvider = ({ children }: Props) => {
         params.rememberMe
           ? setLocalUserData(
               JSON.stringify(response.data.user),
-              JSON.stringify(response.data.refresh_token),
-              JSON.stringify(response.data.access_token)
+              JSON.stringify(response.data.access_token),
+              JSON.stringify(response.data.refresh_token)
             )
           : null
         const returnUrl = router.query.returnUrl
@@ -94,10 +94,12 @@ const AuthProvider = ({ children }: Props) => {
       })
   }
 
-  const handleLogout = () => {
-    setUser(null)
-    clearLocalUserData()
-    router.push('/login')
+  const handleLogout = async () => {
+    logoutAuth().then(() => {
+      setUser(null)
+      clearLocalUserData()
+      router.push('/login')
+    })
   }
 
   const values = {
