@@ -5,6 +5,7 @@ import { ReactNode, ReactElement, useEffect } from 'react'
 import { ACCESS_TOKEN, USER_DATA } from 'src/configs/auth'
 import { useAuth } from 'src/hooks/useAuth'
 import { clearLocalUserData } from '../helpers/storage'
+import { handleRedirectLogin } from '../helpers/axios'
 
 interface AuthGuardProps {
   children: ReactNode
@@ -24,13 +25,7 @@ const AuthGuard = (props: AuthGuardProps) => {
       !window.localStorage.getItem(ACCESS_TOKEN) &&
       !window.localStorage.getItem(USER_DATA)
     ) {
-      if (router.asPath !== '/') {
-        router.replace('/login', {
-          query: { returnUrl: router.asPath }
-        })
-      } else router.replace('/login')
-      authContext.setUser(null)
-      clearLocalUserData()
+      handleRedirectLogin(router, authContext.setUser)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.route])
