@@ -1,11 +1,12 @@
 import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Divider, ListItemIcon } from '@mui/material'
+import { NextPage } from 'next'
 import Image from 'next/image'
 import React from 'react'
 import { useAuth } from 'src/hooks/useAuth'
 
 type TProps = {}
 
-const UserDropdown = (props: TProps) => {
+const UserDropdown: NextPage<TProps> = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 

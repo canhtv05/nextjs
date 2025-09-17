@@ -95,6 +95,7 @@ const RegisterPage: NextPage<TProps> = () => {
             height: 'auto',
             width: 'auto'
           }}
+          priority
         ></Image>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1 }}>

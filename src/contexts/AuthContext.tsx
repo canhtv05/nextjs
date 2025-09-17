@@ -68,11 +68,7 @@ const AuthProvider = ({ children }: Props) => {
     loginAuth({ password: params.password, email: params.email })
       .then(async response => {
         params.rememberMe
-          ? setLocalUserData(
-              JSON.stringify(response.data.user),
-              JSON.stringify(response.data.access_token),
-              JSON.stringify(response.data.refresh_token)
-            )
+          ? setLocalUserData(response.data.user, response.data.access_token, response.data.refresh_token)
           : null
         const returnUrl = router.query.returnUrl
         setUser({ ...response.data.user })

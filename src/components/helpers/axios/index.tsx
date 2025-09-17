@@ -29,21 +29,19 @@ const AxiosInterceptor: FC<TAxiosInterceptor> = ({ children }) => {
   const { accessToken, refreshToken } = getLocalUserData()
   const router = useRouter()
   const { setUser } = useAuth()
-
   instanceAxios.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
     if (accessToken) {
       const decodeAccessToken: any = jwtDecode(accessToken)
-
       if (decodeAccessToken?.exp > Date.now() / 1000) {
         config.headers.Authorization = `Bearer ${accessToken}`
       } else {
         if (refreshToken) {
           const decodeRefreshToken: any = jwtDecode(refreshToken)
 
-          if (decodeRefreshToken?.exp < Date.now() / 1000) {
+          if (decodeRefreshToken?.exp > Date.now() / 1000) {
             await axios
               .post(
-                `${CONFIGS_API.AUTH.INDEX}`,
+                `${CONFIGS_API.AUTH.INDEX}/refresh-token`,
                 {},
                 {
                   headers: {
