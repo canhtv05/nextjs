@@ -2,17 +2,20 @@ import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Divider, ListItemIcon
 import { NextPage } from 'next'
 import Image from 'next/image'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from 'src/hooks/useAuth'
 
 type TProps = {}
 
 const UserDropdown: NextPage<TProps> = () => {
+  const { t } = useTranslation()
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 
   const { user, logout } = useAuth()
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
   const handleClose = () => {
@@ -22,9 +25,9 @@ const UserDropdown: NextPage<TProps> = () => {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title='Account settings'>
+        <Tooltip title={t('account')}>
           <IconButton
-            onClick={handleClick}
+            onClick={handleOpen}
             size='small'
             sx={{ ml: 2 }}
             aria-controls={open ? 'account-menu' : undefined}
