@@ -1,4 +1,4 @@
-import { Box, BoxProps, IconButton, Popover, styled, Typography } from '@mui/material'
+import { IconButton, Menu, MenuItem } from '@mui/material'
 import { NextPage } from 'next'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -6,25 +6,6 @@ import Icon from 'src/components/Icon'
 import { LANGUAGE_OPTIONS } from 'src/configs/i18n'
 
 type TProps = {}
-
-interface IBoxProps extends BoxProps {
-  selected: boolean
-}
-
-const StyledItemLanguage = styled(Box)<IBoxProps>(({ theme, selected }) => ({
-  cursor: 'pointer',
-  '.MuiTypography-root': {
-    padding: '8px 12px'
-  },
-  ...(!selected && {
-    '&:hover': {
-      backgroundColor: theme.palette.action.hover
-    }
-  }),
-  ...(selected && {
-    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.primary.light
-  })
-}))
 
 const LanguageDropDown: NextPage<TProps> = () => {
   const { i18n } = useTranslation()
@@ -49,26 +30,54 @@ const LanguageDropDown: NextPage<TProps> = () => {
       <IconButton color='inherit' onClick={handleOpen}>
         <Icon icon={'lucide:languages'} />
       </IconButton>
-      <Popover
-        id='language-dropdown'
-        open={open}
+
+      <Menu
         anchorEl={anchorEl}
+        id='account-menu'
+        open={open}
         onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left'
+        onClick={handleClose}
+        slotProps={{
+          paper: {
+            elevation: 0,
+            sx: {
+              overflow: 'visible',
+              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+              mt: 1.5,
+              '& .MuiAvatar-root': {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1
+              },
+              '&::before': {
+                content: '""',
+                display: 'block',
+                position: 'absolute',
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: 'background.paper',
+                transform: 'translateY(-50%) rotate(45deg)',
+                zIndex: 0
+              }
+            }
+          }
         }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         {LANGUAGE_OPTIONS.map(l => (
-          <StyledItemLanguage
+          <MenuItem
             selected={l.value === i18n.language}
             key={l.value}
             onClick={() => handleChangeLanguage(l.value as 'vi' | 'en')}
           >
-            <Typography>{l.lang}</Typography>
-          </StyledItemLanguage>
+            {l.lang}
+          </MenuItem>
         ))}
-      </Popover>
+      </Menu>
     </>
   )
 }
