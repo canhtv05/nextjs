@@ -1,14 +1,17 @@
-import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Divider, ListItemIcon } from '@mui/material'
+import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, ListItemIcon } from '@mui/material'
 import { NextPage } from 'next'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { ROUTES_CONFIG } from 'src/configs/routes'
 import { useAuth } from 'src/hooks/useAuth'
 
 type TProps = {}
 
 const UserDropdown: NextPage<TProps> = () => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -20,6 +23,11 @@ const UserDropdown: NextPage<TProps> = () => {
   }
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const handleNavigateMyProfile = () => {
+    router.push(`/${ROUTES_CONFIG.MY_PROFILE}`)
+    handleClose()
   }
 
   return (
@@ -93,20 +101,8 @@ const UserDropdown: NextPage<TProps> = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>{user?.email}</MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>{/* <PersonAdd fontSize='small' /> */}</ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>{/* <Settings fontSize='small' /> */}</ListItemIcon>
-          Settings
+        <MenuItem onClick={handleNavigateMyProfile}>
+          <Avatar /> {t('my_profile')}
         </MenuItem>
         <MenuItem onClick={logout}>
           <ListItemIcon>{/* <Logout fontSize='small' /> */}</ListItemIcon>
