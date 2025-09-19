@@ -16,7 +16,7 @@ const instanceAxios = axios.create({
 })
 
 const handleRedirectLogin = (router: NextRouter, setUser: (data: UserDataType | null) => void) => {
-  if (router.asPath !== '/') {
+  if (router.asPath !== '/' && router.asPath !== '/login') {
     router.replace('/login', {
       query: { returnUrl: router.asPath }
     })

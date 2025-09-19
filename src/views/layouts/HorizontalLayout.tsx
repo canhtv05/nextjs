@@ -9,6 +9,10 @@ import Icon from 'src/components/Icon'
 import UserDropdown from 'src/views/layouts/components/user-dropdown'
 import ModeToggle from './components/mode-toggle'
 import LanguageDropDown from './components/language-dropdown'
+import { useAuth } from 'src/hooks/useAuth'
+import { Button } from '@mui/material'
+import { useRouter } from 'next/router'
+import { ROUTES_CONFIG } from 'src/configs/routes'
 
 const drawerWidth: number = 240
 
@@ -44,6 +48,9 @@ const AppBar = styled(MuiAppBar, {
 }))
 
 const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer, isHiddenMenu = false }) => {
+  const { user } = useAuth()
+  const router = useRouter()
+
   return (
     <AppBar position='absolute' open={open}>
       <Toolbar
@@ -74,7 +81,19 @@ const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer, isHiddenMenu =
         </Typography>
         <LanguageDropDown />
         <ModeToggle />
-        <UserDropdown />
+        {user ? (
+          <UserDropdown />
+        ) : (
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            sx={{ mt: 3, mb: 2, ml: 2 }}
+            onClick={() => router.push(ROUTES_CONFIG.SIGN_IN)}
+          >
+            Sign in
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   )

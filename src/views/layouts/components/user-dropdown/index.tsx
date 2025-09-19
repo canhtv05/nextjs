@@ -26,7 +26,7 @@ const UserDropdown: NextPage<TProps> = () => {
   }
 
   const handleNavigateMyProfile = () => {
-    router.push(`/${ROUTES_CONFIG.MY_PROFILE}`)
+    router.push(ROUTES_CONFIG.MY_PROFILE)
     handleClose()
   }
 

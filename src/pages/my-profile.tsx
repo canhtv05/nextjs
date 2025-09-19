@@ -1,15 +1,14 @@
 import { NextPage } from 'next'
 import { ReactNode } from 'react'
-import BlankLayout from 'src/views/layouts/BlankLayout'
-import RegisterPage from 'src/views/pages/register'
+import LayoutNoApp from 'src/views/layouts/LayoutNoApp'
+import MyProfilePage from 'src/views/pages/my-profile'
 
 type TProps = {}
 
 const MyProfile: NextPage<TProps> = () => {
-  return <RegisterPage />
+  return <MyProfilePage />
 }
 
 export default MyProfile
 
-// MyProfile.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
-// MyProfile.guestGuard = true
+MyProfile.getLayout = (page: ReactNode) => <LayoutNoApp>{page}</LayoutNoApp>
