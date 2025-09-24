@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
@@ -50,9 +50,14 @@ const AppBar = styled(MuiAppBar, {
 const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer, isHiddenMenu = false }) => {
   const { user } = useAuth()
   const router = useRouter()
+  const theme = useTheme()
 
   return (
-    <AppBar position='absolute' open={open}>
+    <AppBar
+      position='absolute'
+      open={open}
+      sx={{ boxShadow: 'none', borderBottom: `1px solid ${theme.palette.divider}` }}
+    >
       <Toolbar
         sx={{
           pr: '30px',

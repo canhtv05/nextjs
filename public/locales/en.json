@@ -1,4 +1,15 @@
 {
   "account": "Account",
-  "my_profile": "My profile"
+  "my_profile": "My profile",
+  "enter_your_email": "Enter your email",
+  "role": "Role",
+  "enter_your_role": "Enter your role",
+  "address": "Address",
+  "enter_your_address": "Enter your address",
+  "city": "City",
+  "enter_your_city": "Enter your city",
+  "phone": "Phone number",
+  "enter_your_phone": "Enter your phone number",
+  "fullname": "Fullname",
+  "enter_your_fullname": "Enter your fullname"
 }
