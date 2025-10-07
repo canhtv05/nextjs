@@ -47,9 +47,12 @@ const UserDropdown: NextPage<TProps> = () => {
                 <Image
                   src={user?.avatar || ''}
                   alt='avatar'
+                  width={100}
+                  height={100}
                   style={{
                     width: 'auto',
-                    height: 'auto'
+                    height: 'auto',
+                    objectFit: 'cover'
                   }}
                 />
               ) : (

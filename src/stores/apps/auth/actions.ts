@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { registerAuth } from 'src/services/auth'
+import { registerAuth, updateAuthMe } from 'src/services/auth'
 import { TRegisterAuth } from 'src/types/auth'
 
 interface IErrorPayload {
@@ -24,3 +24,15 @@ export const registerAuthAsync = createAsyncThunk<any, TRegisterAuth, { rejectVa
     }
   }
 )
+
+export const updateAuthMeAsync = createAsyncThunk('auth/update-me', async (data: any) => {
+  const response = await updateAuthMe(data)
+
+  if (response?.data) return response
+
+  return {
+    data: null,
+    message: response?.response?.data?.message,
+    typeError: response?.response?.data?.typeError
+  }
+})
