@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
 import { resetInitialState } from 'src/stores/apps/auth'
 import { updateAuthMeAsync } from 'src/stores/apps/auth/actions'
-import FallbackSpinner from 'src/components/fall-back'
+import FallbackSpinner from 'src/components/spinner'
 import i18n from 'src/configs/i18n'
 
 type TProps = {}
@@ -133,7 +133,6 @@ const MyProfilePage: NextPage<TProps> = () => {
           phoneNumber: data.phoneNumber,
           address: data.address,
           avatar
-          // city: data.city,
         })
       )
     },
@@ -191,11 +190,19 @@ const MyProfilePage: NextPage<TProps> = () => {
                       )}
                       {avatar ? (
                         <Avatar src={avatar} sx={{ width: 100, height: 100 }}>
-                          <Icon icon={'ph:user-thin'} fontSize={70} />
+                          <Avatar
+                            sx={{
+                              padding: '3px'
+                            }}
+                          />
                         </Avatar>
                       ) : (
                         <Avatar sx={{ width: 100, height: 100 }}>
-                          <Icon icon={'ph:user-thin'} fontSize={70} />
+                          <Avatar
+                            sx={{
+                              padding: '3px'
+                            }}
+                          />
                         </Avatar>
                       )}
                     </Box>

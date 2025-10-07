@@ -1,4 +1,16 @@
-import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, ListItemIcon } from '@mui/material'
+import {
+  Box,
+  Tooltip,
+  IconButton,
+  Avatar,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  Typography,
+  Divider,
+  styled,
+  Badge
+} from '@mui/material'
 import { NextPage } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -6,8 +18,38 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ROUTES_CONFIG } from 'src/configs/routes'
 import { useAuth } from 'src/hooks/useAuth'
+import { toFullName } from 'src/utils'
 
 type TProps = {}
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    backgroundColor: '#44b700',
+    color: '#44b700',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: 'ripple 1.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""'
+    }
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0
+    }
+  }
+}))
 
 const UserDropdown: NextPage<TProps> = () => {
   const { t } = useTranslation()
@@ -42,27 +84,29 @@ const UserDropdown: NextPage<TProps> = () => {
             aria-haspopup='true'
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>
-              {user?.avatar ? (
-                <Image
-                  src={user?.avatar || ''}
-                  alt='avatar'
-                  width={100}
-                  height={100}
-                  style={{
-                    width: 'auto',
-                    height: 'auto',
-                    objectFit: 'cover'
-                  }}
-                />
-              ) : (
-                <Avatar
-                  sx={{
-                    padding: '3px'
-                  }}
-                />
-              )}
-            </Avatar>
+            <StyledBadge overlap='circular' anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} variant='dot'>
+              <Avatar sx={{ width: 32, height: 32 }}>
+                {user?.avatar ? (
+                  <Image
+                    src={user?.avatar || ''}
+                    alt='avatar'
+                    width={0}
+                    height={0}
+                    style={{
+                      width: '32px',
+                      height: '32px',
+                      objectFit: 'cover'
+                    }}
+                  />
+                ) : (
+                  <Avatar
+                    sx={{
+                      padding: '3px'
+                    }}
+                  />
+                )}
+              </Avatar>
+            </StyledBadge>
           </IconButton>
         </Tooltip>
       </Box>
@@ -103,7 +147,38 @@ const UserDropdown: NextPage<TProps> = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>{user?.email}</MenuItem>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mx: 4, pb: 2, px: 2 }}>
+          <StyledBadge overlap='circular' anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} variant='dot'>
+            <Avatar sx={{ width: 32, height: 32 }}>
+              {user?.avatar ? (
+                <Image
+                  src={user?.avatar || ''}
+                  alt='avatar'
+                  width={0}
+                  height={0}
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    objectFit: 'cover'
+                  }}
+                />
+              ) : (
+                <Avatar
+                  sx={{
+                    padding: '3px'
+                  }}
+                />
+              )}
+            </Avatar>
+          </StyledBadge>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+            <Typography component={'span'}>
+              {toFullName(user?.lastName || '', user?.middleName || '', user?.firstName || '')}
+            </Typography>
+            <Typography component={'span'}>{user?.role?.name}</Typography>
+          </Box>
+        </Box>
+        <Divider />
         <MenuItem onClick={handleNavigateMyProfile}>
           <Avatar /> {t('my_profile')}
         </MenuItem>
