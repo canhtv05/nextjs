@@ -13,8 +13,7 @@ import Icon from 'src/components/Icon'
 import WrapperFileUpload from 'src/components/wrapper-file-upload'
 import { useCallback, useEffect, useState } from 'react'
 import { getAuthMe } from 'src/services/auth'
-import { UserDataType } from 'src/contexts/types'
-import { convertBase64, toFullName } from 'src/utils'
+import { convertBase64, separationFullName, toFullName } from 'src/utils'
 import { IconButton } from '@mui/material'
 import { AppDispatch, RootState } from 'src/stores'
 import { useDispatch, useSelector } from 'react-redux'
@@ -22,6 +21,7 @@ import toast from 'react-hot-toast'
 import { resetInitialState } from 'src/stores/apps/auth'
 import { updateAuthMeAsync } from 'src/stores/apps/auth/actions'
 import FallbackSpinner from 'src/components/fall-back'
+import i18n from 'src/configs/i18n'
 
 type TProps = {}
 
@@ -36,7 +36,6 @@ type TDefaultValue = {
 
 const MyProfilePage: NextPage<TProps> = () => {
   const [loading, setLoading] = useState(false)
-  const [user, setUser] = useState<UserDataType | null>(null)
   const [avatar, setAvatar] = useState<string>('')
   const [roleId, setRoleId] = useState<string>('')
 
@@ -80,6 +79,7 @@ const MyProfilePage: NextPage<TProps> = () => {
   })
 
   const fetchGetAuthMe = async () => {
+    setLoading(true)
     await getAuthMe()
       .then(async response => {
         setLoading(false)
@@ -117,14 +117,18 @@ const MyProfilePage: NextPage<TProps> = () => {
   useEffect(() => {
     fetchGetAuthMe()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [i18n.language])
 
   const onSubmit = useCallback(
     (data: any) => {
+      const { firstName, lastName, middleName } = separationFullName(data?.fullName)
+
       dispatch(
         updateAuthMeAsync({
           email: data.email,
-          firstName: data.firstName,
+          firstName,
+          lastName,
+          middleName,
           role: roleId,
           phoneNumber: data.phoneNumber,
           address: data.address,
@@ -334,10 +338,10 @@ const MyProfilePage: NextPage<TProps> = () => {
                       <CustomTextField
                         required
                         fullWidth
-                        id='phone'
+                        id='phoneNumber'
                         label={t('phone')}
-                        name='phone'
-                        autoComplete='phone'
+                        name='phoneNumber'
+                        autoComplete='phoneNumber'
                         onChange={e => {
                           const numValue = e.target.value.replace(/\D/g, '')
                           onChange(numValue)

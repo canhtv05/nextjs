@@ -31,7 +31,7 @@ export const registerAuth = async (data: TRegisterAuth) => {
 
 export const updateAuthMe = async (data: any) => {
   try {
-    const res = await instanceAxios.put(`${CONFIGS_API.AUTH.INDEX}/me`, data)
+    const res = await instanceAxios.put(`${CONFIGS_API.AUTH.AUTH_ME}`, data)
 
     return res.data
   } catch (error) {
