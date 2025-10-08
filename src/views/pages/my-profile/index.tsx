@@ -20,8 +20,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
 import { resetInitialState } from 'src/stores/apps/auth'
 import { updateAuthMeAsync } from 'src/stores/apps/auth/actions'
-import FallbackSpinner from 'src/components/spinner'
 import i18n from 'src/configs/i18n'
+import Spinner from 'src/components/spinner'
 
 type TProps = {}
 
@@ -147,7 +147,7 @@ const MyProfilePage: NextPage<TProps> = () => {
 
   return (
     <>
-      {isLoading || (loading && <FallbackSpinner />)}
+      {isLoading || (loading && <Spinner />)}
       <Box component={'form'} autoComplete='off' onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }} noValidate>
         <Grid container spacing={5}>
           <Grid item sm={4} xs={12}>

@@ -1,21 +1,10 @@
-import {
-  Box,
-  Tooltip,
-  IconButton,
-  Avatar,
-  Menu,
-  MenuItem,
-  ListItemIcon,
-  Typography,
-  Divider,
-  styled,
-  Badge
-} from '@mui/material'
+import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography, Divider, styled, Badge } from '@mui/material'
 import { NextPage } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import Icon from 'src/components/Icon'
 import { ROUTES_CONFIG } from 'src/configs/routes'
 import { useAuth } from 'src/hooks/useAuth'
 import { toFullName } from 'src/utils'
@@ -171,20 +160,27 @@ const UserDropdown: NextPage<TProps> = () => {
               )}
             </Avatar>
           </StyledBadge>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <Typography component={'span'}>
+          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Typography component={'span'} sx={{ fontSize: 14 }}>
               {toFullName(user?.lastName || '', user?.middleName || '', user?.firstName || '')}
             </Typography>
-            <Typography component={'span'}>{user?.role?.name}</Typography>
+            <Typography component={'span'} sx={{ fontSize: 14 }}>
+              {user?.role?.name}
+            </Typography>
           </Box>
         </Box>
         <Divider />
-        <MenuItem onClick={handleNavigateMyProfile}>
-          <Avatar /> {t('my_profile')}
+        <MenuItem onClick={handleNavigateMyProfile} sx={{ mt: 2, display: 'flex', gap: 2 }}>
+          <Icon icon={'lucide:circle-user-round'} style={{ fontSize: 22 }} />
+          <Typography component={'span'} sx={{ fontSize: 14 }}>
+            {t('my_profile')}
+          </Typography>
         </MenuItem>
-        <MenuItem onClick={logout}>
-          <ListItemIcon>{/* <Logout fontSize='small' /> */}</ListItemIcon>
-          Logout
+        <MenuItem onClick={logout} sx={{ display: 'flex', gap: 2 }}>
+          <Icon icon={'lucide:log-out'} style={{ fontSize: 22 }} />
+          <Typography component={'span'} sx={{ fontSize: 14 }}>
+            {t('logout')}
+          </Typography>
         </MenuItem>
       </Menu>
     </React.Fragment>
