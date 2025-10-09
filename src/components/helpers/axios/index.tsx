@@ -5,8 +5,7 @@ import {
   clearTemporaryToken,
   getLocalUserData,
   getTemporaryToken,
-  setLocalUserData,
-  setTemporaryToken
+  setLocalUserData
 } from '../storage'
 import { jwtDecode } from 'jwt-decode'
 import { FC, ReactNode } from 'react'
@@ -69,9 +68,6 @@ const AxiosInterceptor: FC<TAxiosInterceptor> = ({ children }) => {
                   config.headers.Authorization = `Bearer ${newAccessToken}`
                   if (accessToken) {
                     setLocalUserData(JSON.stringify(user), newAccessToken, refreshToken)
-                  } else {
-                    setLocalUserData(JSON.stringify(user), '', refreshToken)
-                    setTemporaryToken(newAccessToken)
                   }
                 } else handleRedirectLogin(router, setUser)
               })

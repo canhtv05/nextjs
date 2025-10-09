@@ -22,5 +22,6 @@
   "new_password": "Mật khẩu mới",
   "enter_new_password": "Nhập mật khẩu mới",
   "confirm_new_password": "Nhập lại mật khẩu mới",
-  "enter_confirm_new_password": "Xác nhận mật khẩu mới"
+  "enter_confirm_new_password": "Xác nhận mật khẩu mới",
+  "no_data": "Không có dữ liệu"
 }

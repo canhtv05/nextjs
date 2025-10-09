@@ -1,6 +1,6 @@
 'use client'
 
-import { Avatar, Box, Button, Grid } from '@mui/material'
+import { Avatar, Box, Button, FormHelperText, Grid, InputLabel } from '@mui/material'
 import { NextPage } from 'next'
 import CustomTextField from 'src/components/text-field'
 import { Controller, useForm } from 'react-hook-form'
@@ -22,6 +22,7 @@ import { resetInitialState } from 'src/stores/apps/auth'
 import { updateAuthMeAsync } from 'src/stores/apps/auth/actions'
 import i18n from 'src/configs/i18n'
 import Spinner from 'src/components/spinner'
+import CustomSelect from 'src/components/custom-select'
 
 type TProps = {}
 
@@ -264,21 +265,42 @@ const MyProfilePage: NextPage<TProps> = () => {
                       required: true
                     }}
                     render={({ field: { onChange, onBlur, value } }) => (
-                      <CustomTextField
-                        required
-                        fullWidth
-                        id='role'
-                        label={t('role')}
-                        name='role'
-                        disabled
-                        autoComplete='role'
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        value={value}
-                        error={Boolean(errors.role)}
-                        placeholder={t('enter_your_role')}
-                        helperText={errors?.email?.message}
-                      />
+                      <Box>
+                        <InputLabel
+                          sx={{
+                            lineHeight: '15px',
+                            mb: 1,
+                            fontSize: '13px',
+                            color: errors?.role
+                              ? theme.palette.error.main
+                              : `rgba(${theme.palette.customColors.main}, 0.42)`
+                          }}
+                        >
+                          {t('role')}
+                        </InputLabel>
+                        <CustomSelect
+                          options={[]}
+                          value={value}
+                          onChange={onChange}
+                          fullWidth
+                          id='role'
+                          name='role'
+                          error={Boolean(errors.role)}
+                          placeholder={t('enter_your_role')}
+                          onBlur={onBlur}
+                        />
+                        {errors?.email?.message && (
+                          <FormHelperText
+                            sx={{
+                              color: !errors?.role
+                                ? theme.palette.error.main
+                                : `rgba(${theme.palette.customColors.main}, 0.42)`
+                            }}
+                          >
+                            {errors?.email?.message}
+                          </FormHelperText>
+                        )}
+                      </Box>
                     )}
                     name='role'
                   />
@@ -321,19 +343,42 @@ const MyProfilePage: NextPage<TProps> = () => {
                   <Controller
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
-                      <CustomTextField
-                        fullWidth
-                        id='city'
-                        label={t('city')}
-                        name='city'
-                        autoComplete='city'
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        value={value}
-                        error={Boolean(errors.city)}
-                        placeholder={t('enter_your_city')}
-                        helperText={errors?.city?.message}
-                      />
+                      <Box>
+                        <InputLabel
+                          sx={{
+                            lineHeight: '15px',
+                            mb: 1,
+                            fontSize: '13px',
+                            color: errors?.role
+                              ? theme.palette.error.main
+                              : `rgba(${theme.palette.customColors.main}, 0.42)`
+                          }}
+                        >
+                          {t('city')}
+                        </InputLabel>
+                        <CustomSelect
+                          options={[]}
+                          value={value}
+                          onChange={onChange}
+                          fullWidth
+                          id='city'
+                          name='city'
+                          error={Boolean(errors.city)}
+                          placeholder={t('enter_your_city')}
+                          onBlur={onBlur}
+                        />
+                        {errors?.city?.message && (
+                          <FormHelperText
+                            sx={{
+                              color: !errors?.role
+                                ? theme.palette.error.main
+                                : `rgba(${theme.palette.customColors.main}, 0.42)`
+                            }}
+                          >
+                            {errors?.city?.message}
+                          </FormHelperText>
+                        )}
+                      </Box>
                     )}
                     name='city'
                   />

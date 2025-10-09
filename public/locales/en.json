@@ -22,5 +22,6 @@
   "new_password": "New password",
   "enter_new_password": "Enter your new password",
   "confirm_new_password": "New password",
-  "enter_confirm_new_password": "Enter your new password"
+  "enter_confirm_new_password": "Enter your new password",
+  "no_data": "No data"
 }
