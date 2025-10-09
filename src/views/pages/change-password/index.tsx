@@ -95,10 +95,12 @@ const ChangePasswordPage: NextPage<TProps> = () => {
   }, [isErrorChangePassword, messageChangePassword, isSuccessChangePassword])
 
   return (
-    <>
+    <Box sx={{ height: '100%' }}>
       {isLoading && <FallbackSpinner />}
       <Box
         sx={{
+          height: '100%',
+          p: 5,
           backgroundColor: theme.palette.background.paper,
           display: 'flex',
           alignItems: 'center',
@@ -267,7 +269,7 @@ const ChangePasswordPage: NextPage<TProps> = () => {
           </Box>
         </Box>
       </Box>
-    </>
+    </Box>
   )
 }
 

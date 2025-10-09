@@ -1,6 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react'
 import { NextPage } from 'next'
-import { Collapse, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import {
+  Collapse,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemProps,
+  ListItemText,
+  styled,
+  Tooltip
+} from '@mui/material'
 import Icon from 'src/components/Icon'
 import { VerticalItems } from 'src/configs/layout'
 
@@ -22,6 +32,15 @@ type TListItems = {
   disable: boolean
 }
 
+const StyledListItemText = styled(ListItemText)<ListItemProps>(({ theme }) => ({
+  '.MuiTypography-root.MuiTypography-body1.MuiListItemText-primary': {
+    textOverFlow: 'ellipsis',
+    overFlow: 'hidden',
+    display: 'block',
+    width: '100%'
+  }
+}))
+
 const RecursiveListItems: NextPage<TListItems> = ({ items, level, disable, openItems, setOpenItems }) => {
   const handleClick = (key: string) => {
     if (!disable) setOpenItems(prev => ({ ...prev, [key]: !prev[key] }))
@@ -38,7 +57,11 @@ const RecursiveListItems: NextPage<TListItems> = ({ items, level, disable, openI
             <ListItemIcon>
               <Icon icon={item.icon} />
             </ListItemIcon>
-            {!disable && <ListItemText primary={item.title} />}
+            {!disable && (
+              <Tooltip title={item.title}>
+                <StyledListItemText primary={item.title} />
+              </Tooltip>
+            )}
             {Array.isArray(item.children) && item.children.length > 0 && (
               <>
                 {!!openItems[item.title] ? <Icon icon={'lucide:chevron-down'} /> : <Icon icon={'lucide:chevron-up'} />}
