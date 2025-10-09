@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
 import { loginAuth, logoutAuth } from 'src/services/auth'
 import { CONFIGS_API } from 'src/configs/api'
-import { clearLocalUserData, setLocalUserData } from 'src/components/helpers/storage'
+import { clearLocalUserData, setLocalUserData, setTemporaryToken } from 'src/components/helpers/storage'
 import { ACCESS_TOKEN } from 'src/configs/auth'
 import instanceAxios from 'src/components/helpers/axios'
 import toast from 'react-hot-toast'
@@ -71,9 +71,11 @@ const AuthProvider = ({ children }: Props) => {
   const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
     loginAuth({ password: params.password, email: params.email })
       .then(async response => {
-        params.rememberMe
-          ? setLocalUserData(response.data.user, response.data.access_token, response.data.refresh_token)
-          : null
+        if (params.rememberMe) {
+          setLocalUserData(JSON.stringify(response.data.user), response.data.access_token, response.data.refresh_token)
+        } else {
+          setTemporaryToken(response.data.access_token)
+        }
 
         toast.success(t('login_success'))
         const returnUrl = router.query.returnUrl
