@@ -26,6 +26,7 @@ import LoginDark from '/public/images/login-dark.png'
 import { useTheme } from '@mui/material'
 import Link from 'next/link'
 import { useAuth } from 'src/hooks/useAuth'
+import toast from 'react-hot-toast'
 
 type TProps = {}
 
@@ -55,7 +56,8 @@ const LoginPage: NextPage<TProps> = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setError
   } = useForm<TDefaultValue>({
     defaultValues: {
       email: 'canh@gmail.com',
@@ -66,7 +68,13 @@ const LoginPage: NextPage<TProps> = () => {
   })
 
   const onSubmit = (data: { email: string; password: string }) => {
-    if (Object.keys(data).length) login({ ...data, rememberMe: isRemember })
+    if (Object.keys(data).length)
+      login({ ...data, rememberMe: isRemember }, err => {
+        setError('email', { type: 'invalid', message: 'The email or password is wrong' })
+        if (err?.response?.data?.typeErr === 'INVALID') {
+          toast.error(err?.response?.data?.message)
+        }
+      })
   }
 
   return (

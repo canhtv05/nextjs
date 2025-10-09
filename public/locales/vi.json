@@ -14,5 +14,13 @@
   "enter_your_fullname": "Nhập họ tên của bạn",
   "upload_avatar": "Tải ảnh lên",
   "change_avatar": "Thay đổi ảnh",
-  "logout": "Đăng xuất"
+  "logout": "Đăng xuất",
+  "change_password": "Đổi mật khẩu",
+  "login_success": "Đăng nhập thành công",
+  "current_password": "Mật khẩu hiện tại",
+  "enter_current_password": "Nhập mật khẩu hiện tại",
+  "new_password": "Mật khẩu mới",
+  "enter_new_password": "Nhập mật khẩu mới",
+  "confirm_new_password": "Nhập lại mật khẩu mới",
+  "enter_confirm_new_password": "Xác nhận mật khẩu mới"
 }

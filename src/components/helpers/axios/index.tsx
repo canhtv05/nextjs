@@ -26,10 +26,10 @@ const handleRedirectLogin = (router: NextRouter, setUser: (data: UserDataType | 
 }
 
 const AxiosInterceptor: FC<TAxiosInterceptor> = ({ children }) => {
-  const { accessToken, refreshToken } = getLocalUserData()
   const router = useRouter()
   const { setUser } = useAuth()
   instanceAxios.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
+    const { accessToken, refreshToken } = getLocalUserData()
     if (accessToken) {
       const decodeAccessToken: any = jwtDecode(accessToken)
       if (decodeAccessToken?.exp > Date.now() / 1000) {

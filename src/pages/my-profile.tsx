@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import { ReactNode } from 'react'
-import LayoutNoApp from 'src/views/layouts/LayoutNoApp'
+import LayoutNoApp from 'src/views/layouts/LayoutNotApp'
 import MyProfilePage from 'src/views/pages/my-profile'
 
 type TProps = {}

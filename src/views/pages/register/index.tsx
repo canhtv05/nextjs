@@ -53,7 +53,7 @@ const RegisterPage: NextPage<TProps> = () => {
         .string()
         .required('Confirm password is a required field')
         .matches(PASSWORD_REG, 'Password must contain character, special character, number')
-        .oneOf([yup.ref('password'), 'The confirm is must match with password'])
+        .oneOf([yup.ref('password')], 'The confirm is must match with password')
     })
     .required()
 
@@ -72,7 +72,9 @@ const RegisterPage: NextPage<TProps> = () => {
   })
 
   const onSubmit = ({ email, password }: { email: string; password: string }) => {
-    dispatch(registerAuthAsync({ email, password }))
+    if (!Object.keys(errors).length) {
+      dispatch(registerAuthAsync({ email, password }))
+    }
   }
 
   useEffect(() => {

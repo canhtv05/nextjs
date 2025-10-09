@@ -28,7 +28,9 @@ const Spinner = ({ sx }: { sx?: BoxProps['sx'] }) => {
         ...sx
       }}
     >
-      <CircularWithValueLabel />
+      <>
+        <CircularWithValueLabel />
+      </>
     </CustomModal>
   )
 }

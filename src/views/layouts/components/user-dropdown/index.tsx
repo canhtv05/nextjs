@@ -61,6 +61,11 @@ const UserDropdown: NextPage<TProps> = () => {
     handleClose()
   }
 
+  const handleNavigateChangePassword = () => {
+    router.push(ROUTES_CONFIG.CHANGE_PASSWORD)
+    handleClose()
+  }
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -174,6 +179,12 @@ const UserDropdown: NextPage<TProps> = () => {
           <Icon icon={'lucide:circle-user-round'} style={{ fontSize: 22 }} />
           <Typography component={'span'} sx={{ fontSize: 14 }}>
             {t('my_profile')}
+          </Typography>
+        </MenuItem>
+        <MenuItem onClick={handleNavigateChangePassword} sx={{ display: 'flex', gap: 2 }}>
+          <Icon icon={'lucide:key-round'} style={{ fontSize: 22 }} />
+          <Typography component={'span'} sx={{ fontSize: 14 }}>
+            {t('change_password')}
           </Typography>
         </MenuItem>
         <MenuItem onClick={logout} sx={{ display: 'flex', gap: 2 }}>

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { registerAuth, updateAuthMe } from 'src/services/auth'
-import { TRegisterAuth } from 'src/types/auth'
+import { changeMyPassword, registerAuth, updateAuthMe } from 'src/services/auth'
+import { TChangePassword, TRegisterAuth } from 'src/types/auth'
 
 interface IErrorPayload {
   message: string
@@ -29,6 +29,18 @@ export const updateAuthMeAsync = createAsyncThunk('auth/update-me', async (data:
   const response = await updateAuthMe(data)
 
   if (response?.data) return response
+
+  return {
+    data: null,
+    message: response?.response?.data?.message,
+    typeError: response?.response?.data?.typeError
+  }
+})
+
+export const changeMyPasswordAsync = createAsyncThunk('auth/change-password-me', async (data: TChangePassword) => {
+  const response = await changeMyPassword(data)
+
+  if (response?.status === 'Success') return { ...response, data: 1 }
 
   return {
     data: null,

@@ -11,7 +11,7 @@ type TProps = {
   children: React.ReactNode
 }
 
-const LayoutNoApp: NextPage<TProps> = ({ children }) => {
+const LayoutNotApp: NextPage<TProps> = ({ children }) => {
   const theme = useTheme()
 
   return (
@@ -47,4 +47,4 @@ const LayoutNoApp: NextPage<TProps> = ({ children }) => {
   )
 }
 
-export default LayoutNoApp
+export default LayoutNotApp
