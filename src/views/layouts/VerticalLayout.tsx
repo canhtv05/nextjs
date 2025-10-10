@@ -8,7 +8,7 @@ import MuiDrawer from '@mui/material/Drawer'
 import ListVerticalLayout from './ListVerticalLayout'
 import Icon from 'src/components/Icon'
 
-const drawerWidth: number = 240
+const drawerWidth: number = 250
 
 type TProps = {
   open: boolean
@@ -46,8 +46,7 @@ const VerticalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-end',
-          px: [1]
+          justifyContent: 'flex-end'
         }}
       >
         <IconButton onClick={toggleDrawer}>

@@ -14,7 +14,7 @@ import { Button } from '@mui/material'
 import { useRouter } from 'next/router'
 import { ROUTES_CONFIG } from 'src/configs/routes'
 
-const drawerWidth: number = 240
+const drawerWidth: number = 250
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
