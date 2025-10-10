@@ -17,6 +17,7 @@ import {
 import Icon from 'src/components/Icon'
 import { VerticalItems } from 'src/configs/layout'
 import { useRouter } from 'next/router'
+import { hexToRGBA } from 'src/utils/hex-to-rgba'
 
 type TProps = {
   open: boolean
@@ -48,9 +49,7 @@ const StyledListItemText = styled(ListItemText)<TListItemText>(({ theme, active 
     overFlow: 'hidden',
     display: 'block',
     width: '100%',
-    color: active
-      ? `${theme.palette.customColors.lightPaperBg} !important`
-      : `rgba(${theme.palette.customColors.main}, 0.78)`,
+    color: active ? `${theme.palette.primary.main} !important` : `rgba(${theme.palette.customColors.main}, 0.78)`,
     fontWeight: active ? 600 : 400
   }
 }))
@@ -83,32 +82,45 @@ const RecursiveListItems: NextPage<TListItems> = ({
         <Box key={item.title} onClick={() => handleSelectItem(item?.path)}>
           <ListItemButton
             sx={{
+              margin: '1px 0',
               padding: `8px 10px 8px ${level * 10}px`,
               backgroundColor:
                 (activePath && item?.path === activePath) || !!openItems[item?.title]
-                  ? `${theme.palette.primary.main} !important`
+                  ? `${hexToRGBA(theme.palette.primary.main, 0.08)} !important`
                   : theme.palette.background.paper
             }}
             onClick={item.children ? () => handleClick(item.title) : undefined}
           >
             <ListItemIcon>
-              <Icon
-                icon={item.icon}
-                style={{
-                  color:
+              <Box
+                sx={{
+                  borderRadius: '8px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  display: 'flex',
+                  height: '30px',
+                  width: '30px',
+                  backgroundColor:
                     (activePath && item?.path === activePath) || !!openItems[item?.title]
-                      ? `${theme.palette.customColors.lightPaperBg}`
-                      : `rgba(${theme.palette.customColors.main}, 0.78)`
+                      ? `${theme.palette.primary.main} !important`
+                      : 'transparent'
                 }}
-              />
+              >
+                <Icon
+                  icon={item.icon}
+                  style={{
+                    color:
+                      (activePath && item?.path === activePath) || !!openItems[item?.title]
+                        ? `${theme.palette.customColors.lightPaperBg}`
+                        : `rgba(${theme.palette.customColors.main}, 0.78)`
+                  }}
+                />
+              </Box>
             </ListItemIcon>
             <Divider />
             {!disable && (
               <Tooltip title={item.title}>
                 <StyledListItemText
-                  sx={{
-                    color: '#fff !important'
-                  }}
                   primary={item.title}
                   active={Boolean((activePath && item?.path === activePath) || !!openItems[item?.title])}
                 />
@@ -122,7 +134,7 @@ const RecursiveListItems: NextPage<TListItems> = ({
                     style={{
                       color:
                         (activePath && item?.path === activePath) || !!openItems[item?.title]
-                          ? `${theme.palette.customColors.lightPaperBg}`
+                          ? `${theme.palette.primary.main}`
                           : `rgba(${theme.palette.customColors.main}, 0.78)`
                     }}
                   />
@@ -132,7 +144,7 @@ const RecursiveListItems: NextPage<TListItems> = ({
                     style={{
                       color:
                         (activePath && item?.path === activePath) || !!openItems[item?.title]
-                          ? `${theme.palette.customColors.lightPaperBg}`
+                          ? `${theme.palette.primary.main}`
                           : `rgba(${theme.palette.customColors.main}, 0.78)`
                     }}
                   />
@@ -173,7 +185,8 @@ const ListVerticalLayout: NextPage<TProps> = ({ open }) => {
       sx={{
         width: '100%',
         maxWidth: 360,
-        bgcolor: 'background.paper'
+        bgcolor: 'background.paper',
+        padding: 0
       }}
       component='nav'
       aria-labelledby='nested-list-subheader'

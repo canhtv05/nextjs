@@ -8,12 +8,12 @@ export const VerticalItems = [
       {
         title: 'Người dùng',
         icon: 'iconoir:group',
-        path: ROUTES_CONFIG.MANAGE_SYSTEM.SYSTEM.USER
+        path: ROUTES_CONFIG.SYSTEM.USER
       },
       {
         title: 'Nhóm vai trò',
         icon: 'icon-park-outline:permissions',
-        path: ROUTES_CONFIG.MANAGE_SYSTEM.SYSTEM.ROLE
+        path: ROUTES_CONFIG.SYSTEM.ROLE
       }
     ]
   },
@@ -24,22 +24,22 @@ export const VerticalItems = [
       {
         title: 'Danh sách sản phẩm',
         icon: 'icon-park-outline:ad-product',
-        path: ROUTES_CONFIG.MANAGE_SYSTEM.PRODUCT.MANAGE_PRODUCT
+        path: ROUTES_CONFIG.MANAGE_PRODUCT.PRODUCTS
       },
       {
         title: 'Danh mục sản phẩm',
         icon: 'material-symbols-light:category-outline',
-        path: ROUTES_CONFIG.MANAGE_SYSTEM.PRODUCT.MANAGE_TYPE_PRODUCT
+        path: ROUTES_CONFIG.MANAGE_PRODUCT.TYPE_PRODUCTS
       },
       {
         title: 'Danh sách đơn hàng',
         icon: 'lets-icons:order-light',
-        path: ROUTES_CONFIG.MANAGE_SYSTEM.PRODUCT.MANAGE_ORDER
+        path: ROUTES_CONFIG.MANAGE_PRODUCT.ORDERS
       },
       {
         title: 'Danh sách đánh giá',
         icon: 'carbon:review',
-        path: ROUTES_CONFIG.MANAGE_SYSTEM.PRODUCT.MANAGE_REVIEW
+        path: ROUTES_CONFIG.MANAGE_PRODUCT.REVIEWS
       }
     ]
   },
@@ -50,17 +50,17 @@ export const VerticalItems = [
       {
         title: 'Thành phố',
         icon: 'solar:city-outline',
-        path: ROUTES_CONFIG.MANAGE_SYSTEM.SETTINGS.CITY
+        path: ROUTES_CONFIG.SETTINGS.CITY
       },
       {
         title: 'Phương thức giao hàng',
         icon: 'carbon:delivery',
-        path: ROUTES_CONFIG.MANAGE_SYSTEM.SETTINGS.DELIVERY_TYPE
+        path: ROUTES_CONFIG.SETTINGS.DELIVERY_TYPE
       },
       {
         title: 'Phương thức thanh toán',
         icon: 'streamline:payment-10',
-        path: ROUTES_CONFIG.MANAGE_SYSTEM.SETTINGS.PAYMENT_TYPE
+        path: ROUTES_CONFIG.SETTINGS.PAYMENT_TYPE
       }
     ]
   }
